@@ -1,0 +1,48 @@
+.Playlist{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #212121;
+    width: 38%;
+    height: 950px;
+    overflow-y: scroll;
+    padding: 20px;
+    color: white;
+    border-radius: 15px;
+    margin: 20px 20px 20px 2px;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+
+.Playlist input{
+    background-color: transparent;
+    width: 100%;
+    border: 0;
+    outline: 0;
+    font-size: 30px;
+    color:white;
+    font-weight: bold;
+}
+.Playlist input:focus{
+    border-bottom: 1px solid #1DB954;
+}
+
+.Playlist-save{
+    font-size: 20px;
+    height: 50px;
+    width: 180px;
+    color: white;
+    font-weight: bold;
+    background-color: #1DB954;
+    border: 0;
+    border-radius: 20px;
+    margin-top: 20px;
+    transition: background-color 0.12s;
+}
+
+.Playlist-save:active{
+    background-color: #b3b3b3 ;
+}

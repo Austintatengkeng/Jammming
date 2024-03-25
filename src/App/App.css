@@ -1,0 +1,26 @@
+.App{
+  background-color: #121212;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.Track-listing{
+  display: flex;
+  justify-content: center;
+}
+
+.App-header{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.App-header h1{
+  color: white;
+}
+.App-header h1 span{
+  color: #1DB954
+}
