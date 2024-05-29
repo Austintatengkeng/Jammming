@@ -18,7 +18,6 @@ function App() {
   let previewRef = useRef();
   const [currentPlaying, setCurrentPlaying] = useState({id:'', src:''});
   
-
   //components to list user's Playlist
   const [userPlaylists, setUserplaylists] = useState([]);
   const [selectedPlaylist, setSelectedPlaylist] = useState({id:'', img:require('../resources/img/newplaylist.png'), name: "new playlist"});

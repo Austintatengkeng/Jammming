@@ -6,7 +6,7 @@ function PlaylistItem ({playlist, onSelected, selected}){
 
     const handleSelect = useCallback((event) => {
         onSelected(playlist);
-    }, []);
+    }, [playlist, onSelected]);
 
     return(
         <div 
