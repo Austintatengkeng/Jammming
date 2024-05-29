@@ -1,5 +1,5 @@
 const clientId = '0ac6284c1cf84f60853d294eaf2eda4d';
-const redirectUri = 'jammming-project-spotify.netlify.app'; 
+const redirectUri = 'https://jammming-project-spotify.netlify.app'; 
 let accessToken;
 
 const Spotify = {
