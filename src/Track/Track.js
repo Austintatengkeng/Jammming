@@ -2,33 +2,33 @@ import React, { useCallback } from "react";
 
 import "./Track.css";
 
-function Track(props) {
+function Track({track, currPlay, onPlay, onAdd, onRemove, isRemoval}) {
 
     const handlePreview = useCallback((event) => {
-        props.onPlay({id:props.track.id, src:props.track.preview});
-    }, [props.onPlay])
+        onPlay({id:track.id, src:track.preview});
+    }, [onPlay, track.id, track.preview]);
 
     const previewAction = useCallback(()=> {
-        if(props.track.preview){
+        if(track.preview){
             return (
-                <div className={`pp-btn ${props.track.id === props.currPlay.id ? 'pause': 'play'}`} onClick={handlePreview}></div>
+                <div className={`pp-btn ${track.id === currPlay.id ? 'pause': 'play'}`} onClick={handlePreview}></div>
             );
         }
         return (
             <div className="pp-btn unavailable" alt="preview is unavailable"></div>
         );
-    }, [props.track, props.currPlay]);
+    }, [track, currPlay, handlePreview]);
 
     const addTrack = useCallback((event) => {
-        props.onAdd(props.track);
-    }, [props.onAdd, props.track]);
+        onAdd(track);
+    }, [onAdd, track]);
 
     const removeTrack = useCallback((event) => {
-        props.onRemove(props.track);
-    }, [props.onRemove, props.track]);
+        onRemove(track);
+    }, [onRemove, track]);
 
     const actionBtn = () => {
-        if(props.isRemoval){
+        if(isRemoval){
             return (
                 <button className="ActionBtn"
                  onClick={removeTrack}
@@ -48,11 +48,11 @@ function Track(props) {
     return (
         <div className="Track">
            {previewAction()}
-           <img src={props.track.img} className="track-cover" alt={props.track.name}/>
+           <img src={track.img} className="track-cover" alt={track.name}/>
             <div className="Track-info">
-                <h3>{props.track.name}</h3>
+                <h3>{track.name}</h3>
                 <p>
-                    {props.track.artist} | {props.track.album}
+                    {track.artist} | {track.album}
                 </p>
             </div>
             {actionBtn()}
