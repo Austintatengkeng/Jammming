@@ -1,0 +1,25 @@
+.playlist {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 5px 10px;
+    margin: 0;
+    border:0;
+}
+
+
+
+.playlist:hover{
+    background-color: grey;
+}
+.playlist.selected{
+    background-color: #1DB954;
+}
+
+.playlist img {
+    height: 45px;
+    width: 45px;
+    border-radius: 5px;
+    margin: 10px;
+}

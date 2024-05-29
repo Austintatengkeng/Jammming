@@ -3,6 +3,22 @@ import React, { useCallback } from "react";
 import "./Track.css";
 
 function Track(props) {
+
+    const handlePreview = useCallback((event) => {
+        props.onPlay({id:props.track.id, src:props.track.preview});
+    }, [props.onPlay])
+
+    const previewAction = useCallback(()=> {
+        if(props.track.preview){
+            return (
+                <div className={`pp-btn ${props.track.id === props.currPlay.id ? 'pause': 'play'}`} onClick={handlePreview}></div>
+            );
+        }
+        return (
+            <div className="pp-btn unavailable" alt="preview is unavailable"></div>
+        );
+    }, [props.track, props.currPlay]);
+
     const addTrack = useCallback((event) => {
         props.onAdd(props.track);
     }, [props.onAdd, props.track]);
@@ -31,6 +47,8 @@ function Track(props) {
     }
     return (
         <div className="Track">
+           {previewAction()}
+           <img src={props.track.img} className="track-cover" alt={props.track.name}/>
             <div className="Track-info">
                 <h3>{props.track.name}</h3>
                 <p>

@@ -9,15 +9,20 @@ function Playlist(props) {
         props.onRename(event.target.value);
     }, [props.onRename]);
 
+
     return (
         <div className="Playlist">
-            <input defaultValue={"new playlist"} onChange={handleNameChange} />
-            <Tracklist
-             tracks={props.playlistTracks}
-             onRemove={props.onRemove}
-             isRemoval={true}
-            />
-            <button className="Playlist-save">
+            <input value={props.playlistName} onChange={handleNameChange} />
+            <div className="track-list">
+                <Tracklist
+                 tracks={props.playlistTracks}
+                 onRemove={props.onRemove}
+                 isRemoval={true}
+                 currPlay={props.currPlay}
+                 onPlay={props.onPlay}
+                />
+            </div>
+            <button className="Playlist-save" onClick={props.onSave}>
              Save To Spotify
             </button>
         </div>
