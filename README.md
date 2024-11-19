@@ -1,181 +1,185 @@
-# Jammming
+# **Jammming Project Documentation**
 
-Jammming is a React-based music playlist creation app that integrates with the Spotify API. Users can search for tracks, preview songs, manage playlists, and save their custom playlists directly to their Spotify account.
-
----
-
-## Features
-
-1. **Search Tracks**:  
-   - Search for songs using the Spotify API.  
-   - Filter out songs already added to the current playlist.
-
-2. **Preview Songs**:  
-   - Play 30-second previews of tracks (if available).  
-   - Pause and play previews seamlessly.
-
-3. **Create and Edit Playlists**:  
-   - Add or remove tracks from the playlist.  
-   - Rename playlists.  
-   - Save playlists to Spotify or update existing ones.
-
-4. **User Playlists**:  
-   - Fetch and display the user's existing Spotify playlists.  
-   - Edit existing playlists or create new ones.
+Jammming is a React-based web application that allows users to search for songs, create playlists, and save them directly to their Spotify accounts using the Spotify Web API. The app focuses on user interaction and provides functionalities such as previewing tracks, managing playlists, and dynamically updating user-created playlists.
 
 ---
 
-## Prerequisites
+## **Features**
+1. **Search for Songs**:
+   - Users can search for tracks using the Spotify API.
+   - Displays search results including song name, artist, album, and a preview option.
 
-- Node.js (version 14 or above)
-- A Spotify Developer account and an application registered on the Spotify Developer Dashboard
+2. **Create Playlists**:
+   - Users can add tracks to a custom playlist.
+   - Playlists can be renamed dynamically.
+
+3. **Save Playlists to Spotify**:
+   - Allows users to save playlists directly to their Spotify account.
+
+4. **Preview Songs**:
+   - Tracks have a preview option, enabling users to listen to a snippet of the song.
+
+5. **Manage Existing Playlists**:
+   - Fetches and displays the user's existing playlists.
+   - Supports editing existing playlists by adding or removing tracks.
 
 ---
 
-## Installation
+## **Technologies Used**
+- **Frontend Framework**: React
+- **Backend Integration**: Spotify Web API
+- **State Management**: React Hooks (`useState`, `useEffect`, `useCallback`, `useRef`)
+- **CSS**: Custom styling for user interface design
 
+---
+
+## **File Structure**
+
+### **App.js**
+The main component managing:
+- Application state.
+- Integration with subcomponents like `SearchBar`, `SearchResults`, `Playlist`, and `UserPlaylists`.
+- Spotify API interactions.
+  
+### **Components**
+- **SearchBar**:
+  - Handles user input for searching songs.
+  - Triggers the `search` method from Spotify API.
+  
+- **SearchResults**:
+  - Displays the results of a search query.
+  - Integrates with `Tracklist` for individual track actions (add, preview).
+
+- **Playlist**:
+  - Allows users to create and manage playlists.
+  - Provides functionality to rename playlists and save them to Spotify.
+
+- **Tracklist**:
+  - A reusable component for displaying lists of tracks.
+  - Includes "add" or "remove" actions and a preview feature.
+
+- **Track**:
+  - Represents a single track item.
+  - Includes metadata (song name, artist, album, preview).
+  - Provides "add to playlist" or "remove from playlist" actions.
+
+- **UserPlaylists**:
+  - Displays the user's existing playlists.
+  - Allows selection of a playlist for editing.
+
+### **Utilities**
+- **Spotify.js**:
+  - Handles all interactions with the Spotify Web API.
+  - Functions include:
+    - Authentication via Spotify OAuth.
+    - Searching for tracks.
+    - Saving new playlists.
+    - Fetching user playlists and playlist items.
+
+---
+
+## **Key Functionalities**
+
+### **Search Songs**
+1. **Input**:
+   - User inputs a search term in the `SearchBar`.
+2. **Process**:
+   - `Spotify.search(term)` fetches track data.
+   - Results are displayed in `SearchResults`.
+3. **Output**:
+   - A list of tracks with metadata and actions (add to playlist, preview).
+
+---
+
+### **Create and Save Playlist**
+1. **Add Tracks**:
+   - Users select tracks from `SearchResults` to add to the `Playlist`.
+   - Tracks are stored in the `playlistTracks` state.
+   
+2. **Rename Playlist**:
+   - Users can rename the playlist dynamically.
+   
+3. **Save to Spotify**:
+   - `Spotify.savePlaylist(playlistName, trackUris)` saves the playlist.
+   - New playlists or updates to existing playlists are reflected in the user's Spotify account.
+
+---
+
+### **Preview Tracks**
+1. **Play/Pause**:
+   - Clicking on a track preview button (`onPlay`) toggles playback.
+   - Uses an `<audio>` element with a `previewRef` for handling audio.
+
+---
+
+### **Manage User Playlists**
+1. **Fetch Playlists**:
+   - Fetches existing playlists using `Spotify.getUserPlaylists()`.
+2. **Edit Playlist**:
+   - Select a playlist to view its tracks.
+   - Add or remove tracks, or rename the playlist.
+
+---
+
+## **How It Works**
+
+### **Authentication**
+1. When the app loads, it checks for an access token.
+2. If no token is present, the app redirects users to Spotify's authorization URL.
+3. Spotify redirects back with an access token appended to the URL.
+
+### **Spotify API Calls**
+- **Search Tracks**: Fetch tracks based on user input.
+- **Save Playlist**: Create or update a playlist in the user’s Spotify account.
+- **Fetch Playlists**: Retrieve a list of the user’s existing playlists.
+- **Fetch Playlist Items**: Retrieve tracks within a specific playlist.
+
+---
+
+## **Installation and Setup**
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/jammming.git
+   git clone https://github.com/Austintatengkeng/jammming.git
+   ```
+2. Navigate to the project directory:
+   ```bash
    cd jammming
    ```
-
-2. Install dependencies:
+3. Install dependencies:
    ```bash
    npm install
    ```
-
-3. Set up Spotify API credentials:
-   - Go to the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/) and create an application.
-   - Copy the Client ID and set up a Redirect URI (e.g., `http://localhost:3000`).
-   - Create a `.env` file in the root of the project:
-     ```bash
-     REACT_APP_SPOTIFY_CLIENT_ID=your-client-id
-     REACT_APP_SPOTIFY_REDIRECT_URI=http://localhost:3000
-     ```
-
 4. Start the development server:
    ```bash
    npm start
    ```
-
----
-
-## File Structure
-
-```plaintext
-src/
-├── App.js                  # Main application component
-├── App.css                 # Styles for the app
-├── components/             
-│   ├── SearchBar/          # Search bar component
-│   ├── SearchResults/      # Displays search results
-│   ├── Playlist/           # Displays and manages a playlist
-│   ├── UserPlaylists/      # Displays user's playlists
-│   ├── Track/              # Individual track component
-│   ├── Tracklist/          # List of tracks
-├── util/
-│   └── Spotify.js          # Handles Spotify API interactions
-└── resources/
-    └── img/                # Static assets for the app
-```
-
----
-
-## Components
-
-### 1. **App**
-   - Manages state for search results, playlists, and playback functionality.
-   - Coordinates interactions between components.
-
-### 2. **SearchBar**
-   - Allows users to search for tracks via the Spotify API.
-
-### 3. **SearchResults**
-   - Displays the search results in a list.
-   - Allows adding tracks to the playlist.
-
-### 4. **Playlist**
-   - Manages the current playlist (name, tracks, and saving to Spotify).
-
-### 5. **UserPlaylist**
-   - Fetches and displays the user's Spotify playlists.
-   - Allows editing existing playlists.
-
-### 6. **Track**
-   - Displays an individual track with options to preview, add, or remove from a playlist.
-
-### 7. **Tracklist**
-   - Renders a list of tracks.
-
----
-
-## Usage
-
-1. **Search Tracks**  
-   Enter a search term in the search bar to find songs. Click the "+" button to add a song to the playlist.
-
-2. **Preview Tracks**  
-   Click the play button next to a track to listen to a preview.
-
-3. **Create or Edit a Playlist**  
-   - Rename your playlist using the input box.  
-   - Add or remove tracks as needed.
-
-4. **Save Playlist**  
-   Click "Save To Spotify" to save your playlist to your Spotify account.  
-   If editing an existing playlist, changes will be applied.
-
----
-
-## Scripts
-
-- **Start**: Runs the app in development mode.
-  ```bash
-  npm start
-  ```
-- **Build**: Builds the app for production.
-  ```bash
-  npm run build
-  ```
-- **Test**: Runs unit tests.
-  ```bash
-  npm test
-  ```
-
----
-
-## API Integration
-
-The app uses the following endpoints from the Spotify API:
-
-1. **Search for Tracks**:  
-   Endpoint: `/v1/search`  
-   Example Usage:  
-   ```javascript
-   Spotify.search(term).then(tracks => { ... });
+5. Open the app in your browser at:
+   ```
+   http://localhost:3000
    ```
 
-2. **Get User Playlists**:  
-   Endpoint: `/v1/me/playlists`
+---
 
-3. **Get Playlist Items**:  
-   Endpoint: `/v1/playlists/{playlist_id}/tracks`
-
-4. **Save Playlist**:  
-   Endpoint: `/v1/users/{user_id}/playlists`
-
-5. **Update Playlist**:  
-   Endpoint: `/v1/playlists/{playlist_id}`
+## **Configuration**
+1. Replace the placeholder `clientId` in `Spotify.js` with your Spotify API Client ID.
+2. Update the `redirectUri` with your hosted app URL (e.g., `https://your-app-domain.netlify.app`).
 
 ---
 
-## Contribution
-
-1. Fork the repository.
-2. Create a new branch: `git checkout -b feature-name`.
-3. Commit your changes: `git commit -m 'Add new feature'`.
-4. Push the branch: `git push origin feature-name`.
-5. Submit a pull request.
+## **Known Issues**
+- **Rate Limit**:
+  - Spotify API imposes rate limits. The app handles retries with exponential backoff for certain endpoints.
+- **Preview Unavailability**:
+  - Some tracks may not have preview URLs.
 
 ---
+
+## **Future Improvements**
+- Add support for collaborative playlists.
+- Enhance error handling for API failures.
+- Implement pagination for search results and playlists.
+
+---
+
+## **Acknowledgments**
+This project is based on the Codecademy Jammming project. It was extended with additional features like managing existing playlists and audio previews.
